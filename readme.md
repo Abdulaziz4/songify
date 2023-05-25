@@ -1,6 +1,15 @@
 # Songify
+> This project serves as an educational resource to gain familiarity with Docker, Kubernetes, and AWS deployment. 
 
-Songify is a Go-based API that allows you to create, edit, delete, and retrieve songs. It is built using the Gin framework and utilizes PostgreSQL as the database for storing song information. The API is deployed to an AWS EC2 instance and utilizes AWS EBS for storage.
+Songify is a Go-based RESTful API that allows you to manage songs. You can create, edit, delete, and retrieve songs using this API. It is built using the Gin framework and utilizes PostgreSQL as the database for storing song information. The API is designed to provide a simple and efficient way to manage your song library.
+
+## Technology Stack
+
+- Go: The programming language used to build the API.
+- Gin: A lightweight and fast HTTP web framework for building APIs in Go.
+- PostgreSQL: A powerful and popular open-source relational database used for storing song data.
+- Docker: The API is containerized using Docker, allowing for easy deployment and scalability.
+- AWS EC2 and EBS: The API is deployed on an AWS EC2 instance with EBS for storage.
 
 ## Getting Started
 To get started with the Songify, follow the steps below:
