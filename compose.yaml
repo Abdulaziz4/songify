@@ -1,0 +1,36 @@
+services:
+  songify:
+    image: abdulaziz121/songify:1.0.0
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_NAME=songify
+      - DB_HOST=postgresdb
+      - DB_USER=spuser
+      - DB_PORT=5432
+      - DB_PASSWORD=spuser1234
+      - PORT=8080
+    depends_on:
+      - postgresdb
+
+  postgresdb:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: spuser
+      POSTGRES_PASSWORD: spuser1234
+      POSTGRES_DB: spuser1234
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+      
+volumes:
+  db-data:
+
+
+
+
+
+
+
+  

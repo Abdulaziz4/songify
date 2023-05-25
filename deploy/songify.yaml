@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: songify-deployment
+  labels:
+    app: songify
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: songify
+  template:
+    metadata:
+      labels:
+        app: songify
+    spec:
+      containers:
+      - name: songify
+        image: abdulaziz121/songify:1.0.0
+        ports:
+        - containerPort: 8080
+        env:
+          - name: PORT
+            value: "8080"
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secrets
+                key: DB_NAME 
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secrets
+                key: DB_USER
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secrets
+                key: DB_PASSWORD
+          - name: DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-configmap
+                key: DB_HOST
+          - name: DB_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-configmap
+                key: DB_PORT
+            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: songify-service
+  labels:
+    app: songify-service
+spec: 
+  selector:
+    app: songify
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30001
+
+
+
+

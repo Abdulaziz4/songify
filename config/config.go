@@ -1,21 +1,26 @@
 package config
 
-import "github.com/spf13/viper"
+import (
+	"github.com/spf13/viper"
+)
 
 type Config struct {
-	Port  string `mapstructure:"PORT"`
-	DbUrl string `mapstructure:"DB_URL"`
+	Port       string `mapstructure:"PORT"`
+	DbName     string `mapstructure:"DB_NAME"`
+	DbPassword string `mapstructure:"DB_PASSWORD"`
+	DbHost     string `mapstructure:"DB_HOST"`
+	DbPort     string `mapstructure:"DB_PORT"`
+	DbUser     string `mapstructure:"DB_USER"`
 }
 
-func LoadConfig() (config Config, err error) {
-	viper.AddConfigPath("./config/envs")
-	viper.SetConfigName("dev")
-	viper.SetConfigType("env")
+var configPath = "/etc/app/"
 
-	viper.AutomaticEnv()
+func LoadConfig() (config Config, err error) {
+	viper.AddConfigPath(configPath)
+	viper.SetConfigType("yaml")
+	viper.SetConfigName("config")
 
 	err = viper.ReadInConfig()
-
 	if err != nil {
 		return
 	}
