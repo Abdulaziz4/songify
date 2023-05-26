@@ -13,12 +13,10 @@ type Config struct {
 	DbUser     string `mapstructure:"DB_USER"`
 }
 
-var configPath = "/etc/app/"
-
 func LoadConfig() (config Config, err error) {
-	viper.AddConfigPath(configPath)
-	viper.SetConfigType("yaml")
-	viper.SetConfigName("config")
+	viper.AddConfigPath(".")
+	viper.SetConfigName("app")
+	viper.SetConfigType("env")
 
 	err = viper.ReadInConfig()
 	if err != nil {

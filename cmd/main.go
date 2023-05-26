@@ -1,8 +1,7 @@
 package main
 
 import (
-	"os"
-
+	"github.com/Abdulaziz4/songify/config"
 	"github.com/Abdulaziz4/songify/model"
 	"github.com/Abdulaziz4/songify/router"
 	"github.com/Abdulaziz4/songify/service"
@@ -12,17 +11,14 @@ import (
 )
 
 func main() {
-	// c, err := config.LoadConfig()
-	// if err != nil {
-	// 	panic(err)
-	// }
-	host := os.Getenv("DB_HOST")
-	port := os.Getenv("DB_PORT")
-	user := os.Getenv("DB_USER")
-	dbname := os.Getenv("DB_NAME")
-	password := os.Getenv("DB_PASSWORD")
+	c, err := config.LoadConfig()
+	if err != nil {
+		panic(err)
+	}
 
-	dsn := "host=" + host + " user=" + user + " password=" + password + " dbname=" + dbname + " port=" + port + " sslmode=disable TimeZone=Asia/Shanghai"
+	print(c.DbHost)
+
+	dsn := "host=" + c.DbHost + " user=" + c.DbUser + " password=" + c.DbPassword + " dbname=" + c.DbName + " port=" + c.DbPort + " sslmode=disable TimeZone=Asia/Shanghai"
 
 	// Establish connection to database
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
@@ -45,5 +41,5 @@ func main() {
 	r.GET("/songs/:id", songRouter.GetById)
 	r.DELETE("/songs/:id", songRouter.Delete)
 
-	r.Run(":" + os.Getenv("PORT"))
+	r.Run(":" + c.Port)
 }
