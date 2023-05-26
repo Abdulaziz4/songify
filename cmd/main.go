@@ -41,5 +41,5 @@ func main() {
 	r.GET("/songs/:id", songRouter.GetById)
 	r.DELETE("/songs/:id", songRouter.Delete)
 
-	r.Run(":" + c.Port)
+	r.Run(c.ServerAddress)
 }
