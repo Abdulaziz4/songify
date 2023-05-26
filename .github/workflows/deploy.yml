@@ -11,6 +11,13 @@ jobs:
     environment: production
 
     steps:
+      - name: Display Environment Variable
+        run: |
+          if [ -z "${{ env.AWS_REGION }}" ]; then
+            echo "MY_VARIABLE is not declared."
+          else
+            echo "MY_VARIABLE is declared with value: ${{ env.AWS_REGION }}"
+          fi
       - name: Checkout
         uses: actions/checkout@v3
 
