@@ -11,13 +11,6 @@ jobs:
     environment: production
 
     steps:
-      - name: Display Environment Variable
-        run: |
-          if [ -z "${{ env.AWS_REGION }}" ]; then
-            echo "MY_VARIABLE is not declared."
-          else
-            echo "MY_VARIABLE is declared with value: ${{ env.AWS_REGION }}"
-          fi
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -26,7 +19,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ vars.AWS_REGION }}
 
       - name: Login to Amazon ECR
         id: login-ecr
