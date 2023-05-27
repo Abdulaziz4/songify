@@ -1,19 +1,21 @@
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: songify-deployment
   labels:
     app: songify
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: songify
+      app: songify-pod
   template: 
     metadata:
       labels:
-        app: songify
+        app: songify-pod
     spec:
       containers: 
       - name: songify
-      
+        image: 966222006179.dkr.ecr.us-east-1.amazonaws.com/songify:6c9fef82977b9870238b07b1f63201981769e0ca
+        ports:
+        - containerPort: 8080
