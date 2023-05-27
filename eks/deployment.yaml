@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: songify-deployment
+  labels:
+    app: songify
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: songify
+  template: 
+    metadata:
+      labels:
+        app: songify
+    spec:
+      containers: 
+      - name: songify
+      
